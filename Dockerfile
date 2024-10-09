@@ -1,4 +1,4 @@
-FROM python:3.10-slim-bullseye as app
+FROM python:3.12.7-slim-bullseye as app
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=off \
@@ -27,7 +27,7 @@ RUN poetry install --no-dev && \
     mv /root/nltk_data /app/.venv/ && \
     poetry run python -m spacy download ru_core_news_sm
 
-FROM python:3.10-slim-bullseye as prod
+FROM python:3.12.7-slim-bullseye as prod
 ENV PATH="$PATH:/app/.venv/bin"
 COPY --from=app /app /app
 RUN apt-get update \
